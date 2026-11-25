@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>System Status</title>
+    <style>
+        #status { padding:20px; color:white; background:orange; }
+    </style>
+</head>
+
+<body>
+
+    <div id="status">System is Checking...</div>
+    <h2 id="welcome"></h2>
+    <button id="btn">Check System Status</button>
+
+    <script>
+        const status = document.getElementById("status");
+        const welcome = document.getElementById("welcome");
+        const btn = document.getElementById("btn");
+
+        window.onload = () => {
+            welcome.innerText = "Welcome to System Status Monitor";
+        };
+
+        const updateBanner = (message, color) => {
+            status.innerText = message;
+            status.style.background = color;
+        };
+
+        const checkStatus = () => {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(Math.random() > 0.5);
+                }, 1000);
+            });
+        };
+
+        btn.onclick = () => {
+            updateBanner("System is Checking...", "orange");
+
+            checkStatus().then((online) => {
+                if (online)
+                    updateBanner("System is Online", "green");
+                else
+                    updateBanner("System is Offline", "red");
+            });
+        };
+    </script>
+
+</body>
+</html>
